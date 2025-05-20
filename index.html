@@ -1,147 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Scientific calculator</title>
-        <!-- <link rel="stylesheet" href="bootstrap-4.0.0-dist/css/bootstrap.css"> -->
-        <style>
-            body{
-                background-color: #3fb399;
-            }
-            .container {
-                width: 420px;
-                background-color: white;
-                margin: 120px auto;
-            }
-            table {
-                width: 100%;
-                border-color: #f4f4f4;
-            }
-            td {
-                width:25%;
-            }
-            
-            button {
-                width: 100%;
-                height: 70px;
-                font-size: 24px;
-                background-color: black;
-                border: none;
-                color: white;
-            }
-            #show {
-                height: 120px;
-                font-size: 40px;
-                vertical-align: bottom;
-                text-align: center;
-                padding-right: 16px;
-                background-color: #ececec;
-            }
-            input {
-                position: relative;
-                width: 95%;
-                height: 90%;
-                background-color: green;
-                border: none;
-            }
-            input::before{
-                position: relative;
-                width: 100%;
-                height: 67%;
-                background-color: #ececec;
-                border: none;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <table border="1" cellspacing="0">
-                <tr>
-                    <td colspan="4"><input type="text" class="ope"  id="show"  value="0"   onclick="disappear(4)" ></td>
-                </tr>
-                <tr>
-                    <td colspan="3" ><button type="button"  onclick="ac('')">AC</button></td>
-                    <td><button onclick="tap('/')">/</button></td>
-                </tr>
-                <tr>
-                    <td><button onclick="tap(7)">7</button></td>
-                    <td><button onclick="tap(8)">8</button></td>
-                    <td><button onclick="tap(9)">9</button></td>
-                    <td><button onclick="tap('*')">*</button></td>
-                </tr>
-                <tr>
-                    <td><button onclick="tap(4)">4</button></td>
-                    <td><button onclick="tap(5)">5</button></td>
-                    <td><button onclick="tap(6)">6</button></td>
-                    <td><button onclick="tap('-')">-</button></td>
-                </tr>
-                <tr>
-                    <td><button onclick="tap(1)">1</button></td>
-                    <td><button onclick="tap(2)">2</button></td>
-                    <td><button onclick="tap(3)">3</button></td>
-                    <td><button onclick="tap('+')">+</button></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><button onclick="tap(0)">0</button></td>
-                    <td><button onclick="tap('.')">.</button></td>
-                    <td><button   onclick="ss('=')">=</button></td>
-                </tr>
-            </table>
-        </div>
-        <script>
-            // <!-- <input type="text" id="display">
-            // <button onclick="send(3)">3</button>
-            // <input type="text" placeholder="name" id="n">
-            // <input type="number" placeholder="age" id="g">
-            // <button onclick="rise()"> display</button>
-            // <script type="text/javascript">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f5f5f5;
+    }
 
-                // function rise(){
-            //         var a = n.value;
-            //         var b = g.value;
-            //         alert("This is my" + a + "and my age is" + b);
-            //     }
-            // //    a = Math.floor(Math.random()*10)
-            // //    alert(a);
-            //      function send(myNumber){
-            //       var a = display.value;
-            //         var b = myNumber;
-            //         a = b;
-            //         display.value = a;
-            //      }
-            //    // Increment operation
-            //     // var x= 5;
-            //     // x *=5
-            //     // alert(x); -->
-        
-        function tap(myNumber){
-            var a = show.value
-            var b = myNumber;
-            var ca = ac;
-            ac = "";
-            if(a === 0){
-                a = b 
-            }
-            a += b;
-            show.value = a; 
-        }
-        function ac(special){
-           var a = show.value
-           var b = special
-           a = b
-           show.value = a
-        }
-        function ss(){
-            // var a = show.value;
-            show.value = eval(show.value) 
-        }
-        
-        function disappear(){
-            var a = show.value
-            
-        }
-        </script>
-    </body>
+    .calculator {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    .calculator input {
+      width: 100%;
+      height: 60px;
+      font-size: 24px;
+      text-align: right;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      background: #eaeaea;
+    }
+
+    .calculator table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .calculator td {
+      padding: 5px;
+    }
+
+    .calculator button {
+      width: 100%;
+      padding: 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #f0f0f0;
+      transition: background-color 0.3s ease;
+    }
+
+    .calculator button:hover {
+      background-color: #dcdcdc;
+    }
+
+    .calculator button.operator {
+      background-color: #fcb045;
+      color: #fff;
+    }
+
+    .calculator button.operator:hover {
+      background-color: #e59832;
+    }
+
+    .calculator button.equal {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    .calculator button.equal:hover {
+      background-color: #43a047;
+    }
+
+    .calculator button.ac {
+      background-color: #e74c3c;
+      color: white;
+    }
+
+    .calculator button.ac:hover {
+      background-color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+    <input type="text" id="show" class="ope" value="0" onclick="disappear()">
+    <table>
+      <tr>
+        <td colspan="3"><button class="ac" onclick="ac('')">AC</button></td>
+        <td><button class="operator" onclick="tap('/')">/</button></td>
+      </tr>
+      <tr>
+        <td><button onclick="tap(7)">7</button></td>
+        <td><button onclick="tap(8)">8</button></td>
+        <td><button onclick="tap(9)">9</button></td>
+        <td><button class="operator" onclick="tap('*')">*</button></td>
+      </tr>
+      <tr>
+        <td><button onclick="tap(4)">4</button></td>
+        <td><button onclick="tap(5)">5</button></td>
+        <td><button onclick="tap(6)">6</button></td>
+        <td><button class="operator" onclick="tap('-')">-</button></td>
+      </tr>
+      <tr>
+        <td><button onclick="tap(1)">1</button></td>
+        <td><button onclick="tap(2)">2</button></td>
+        <td><button onclick="tap(3)">3</button></td>
+        <td><button class="operator" onclick="tap('+')">+</button></td>
+      </tr>
+      <tr>
+        <td colspan="2"><button onclick="tap(0)">0</button></td>
+        <td><button onclick="tap('.')">.</button></td>
+        <td><button class="equal" onclick="ss('=')">=</button></td>
+      </tr>
+    </table>
+  </div>
+
+  <script>
+    function tap(val) {
+      const display = document.getElementById('show');
+      if (display.value === "0") {
+        display.value = val;
+      } else {
+        display.value += val;
+      }
+    }
+
+    function ss() {
+      const display = document.getElementById('show');
+      try {
+        display.value = eval(display.value);
+      } catch {
+        display.value = "Error";
+      }
+    }
+
+    function ac() {
+      document.getElementById('show').value = "0";
+    }
+
+    function disappear() {
+      const display = document.getElementById('show');
+      if (display.value === "0") {
+        display.value = "";
+      }
+    }
+  </script>
+
+</body>
 </html>
